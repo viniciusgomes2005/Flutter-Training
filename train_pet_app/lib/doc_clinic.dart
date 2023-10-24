@@ -76,10 +76,13 @@ class _DocClinicState extends State<DocClinic> {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:const Color.fromARGB(255, 8, 77, 197),border: Border.all(width: 3,color: const Color.fromARGB(255, 8, 77, 197))),
                     height: 50,
                     child: Center(child: Text(widget.docClinic.evaluation.toString(),style: const TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.bold),)),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
+            ElevatedButton(onPressed: (){
+              showDatePicker(context: context, initialDate:DateTime.now(), firstDate: DateTime(2023,10,22), lastDate: DateTime(2023,10,26),initialEntryMode:DatePickerEntryMode.inputOnly);
+            }, child: const SizedBox(width: 100,height: 100,child: ColoredBox(color: Colors.white),))
           ],
         )
         ),
@@ -110,7 +113,20 @@ class _DocClinicState extends State<DocClinic> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("Booking confirmation"),
+                  Row(
+                    children: [Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(onPressed: (){
+                      setState(() {
+                        isVisible=false;
+                      });
+                    }, icon: const Icon(Icons.arrow_back, color: Colors.purple,)),
+                  ),const Align(
+                    alignment: Alignment.topCenter,
+                    child: Text("Booking confirmation")
+                    )
+                  ]
+                ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
