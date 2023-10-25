@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'class_veterinary.dart';
-
+import 'days.dart';
 
 class DocClinic extends StatefulWidget{
   final Veterinary docClinic;
@@ -12,6 +12,7 @@ class DocClinic extends StatefulWidget{
 
 class _DocClinicState extends State<DocClinic> {
   bool isVisible=false;
+  DateTime selectedDate=DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,9 +81,85 @@ class _DocClinicState extends State<DocClinic> {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: (){
-              showDatePicker(context: context, initialDate:DateTime.now(), firstDate: DateTime(2023,10,22), lastDate: DateTime(2023,10,26),initialEntryMode:DatePickerEntryMode.inputOnly);
-            }, child: const SizedBox(width: 100,height: 100,child: ColoredBox(color: Colors.white),))
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(200, 80),
+                backgroundColor:MaterialStateColor.resolveWith((states){
+                  if(states.contains(MaterialState.pressed)){
+                    return Colors.blue;
+                  }else{
+                    return Colors.white;
+                  }
+                })
+              ),
+              onPressed: (){
+              showDatePicker(context: context, initialDate:DateTime.now(), firstDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2), lastDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2),initialEntryMode:DatePickerEntryMode.inputOnly,onDatePickerModeChange:(value) {
+                setState(() {
+                  selectedDate=value as DateTime;
+                });
+              },);
+            }, child: Column(
+              children: [
+                const Text("Selecione a data da consulta"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Column(
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2)),style: const TextStyle(fontSize: 10),),
+                        Text("${DateTime.now().day-2}",style: const TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 5,
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-1)),style: const TextStyle(fontSize: 10),),
+                        Text("${DateTime.now().day-1}",style: const TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Column(
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day)),style: const TextStyle(fontSize: 10),),
+                        Text("${DateTime.now().day}",style: const TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Column(
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1)),style: const TextStyle(fontSize: 10),),
+                        Text("${DateTime.now().day+1}",style: const TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Column(
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2)),style: const TextStyle(fontSize: 10),),
+                        Text("${DateTime.now().day+2}",style: const TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),
+                ],),
+              ],
+            ))
           ],
         )
         ),
@@ -130,7 +207,12 @@ class _DocClinicState extends State<DocClinic> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(widget.docClinic.price.toString()),
+                      Column(
+                        children: [
+                          Text(widget.docClinic.price.toString()),
+                          Text(selectedDate.day.toString())
+                        ],
+                      ),
                       ElevatedButton(onPressed: (){}, child: const Text("Book"))
                     ],
                   )
