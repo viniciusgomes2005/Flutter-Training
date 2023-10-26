@@ -12,7 +12,7 @@ class DocClinic extends StatefulWidget{
 
 class _DocClinicState extends State<DocClinic> {
   bool isVisible=false;
-  DateTime selectedDate=DateTime.now();
+  DateTime actualDateSelected=DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,12 +92,14 @@ class _DocClinicState extends State<DocClinic> {
                   }
                 })
               ),
-              onPressed: (){
-              showDatePicker(context: context, initialDate:DateTime.now(), firstDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2), lastDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2),initialEntryMode:DatePickerEntryMode.inputOnly,onDatePickerModeChange:(value) {
+              onPressed: ()async{
+                DateTime? selectedDate=await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day), firstDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2), lastDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2));
+                if (selectedDate==null){
+                  return;
+                }
                 setState(() {
-                  selectedDate=value as DateTime;
+                  actualDateSelected=selectedDate;
                 });
-              },);
             }, child: Column(
               children: [
                 const Text("Selecione a data da consulta"),
@@ -210,7 +212,7 @@ class _DocClinicState extends State<DocClinic> {
                       Column(
                         children: [
                           Text(widget.docClinic.price.toString()),
-                          Text(selectedDate.day.toString())
+                          Text(actualDateSelected.day.toString())
                         ],
                       ),
                       ElevatedButton(onPressed: (){}, child: const Text("Book"))
