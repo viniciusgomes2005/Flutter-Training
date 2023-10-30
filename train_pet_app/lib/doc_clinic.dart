@@ -13,6 +13,29 @@ class DocClinic extends StatefulWidget{
 class _DocClinicState extends State<DocClinic> {
   bool isVisible=false;
   DateTime actualDateSelected=DateTime.now();
+  double textWidth=0;
+  @override
+    void initState() {
+    super.initState();
+    calculateTextWidth();
+  }
+
+  Future<void> calculateTextWidth() async {
+    final text = "Booking confirmation: ${actualDateSelected.day}/${actualDateSelected.month}";
+    // ignore: prefer_const_declarations
+    final textStyle = const TextStyle(fontSize: 15);
+    final textSpan = TextSpan(text: text, style: textStyle);
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+
+    textPainter.layout();
+
+    setState(() {
+      textWidth = textPainter.width;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,21 +134,10 @@ class _DocClinicState extends State<DocClinic> {
                     height: 30,
                     decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2)),style: const TextStyle(fontSize: 10),),
-                        Text("${DateTime.now().day-2}",style: const TextStyle(fontSize: 15),),
-                      ],
-                    ),
-                  ),Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 5,
-                      children: [
-                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-1)),style: const TextStyle(fontSize: 10),),
-                        Text("${DateTime.now().day-1}",style: const TextStyle(fontSize: 15),),
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2)),style: const TextStyle(fontSize: 8),),
+                        Text("${DateTime.now().day-2}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),Container(
@@ -133,9 +145,10 @@ class _DocClinicState extends State<DocClinic> {
                     height: 30,
                     decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day)),style: const TextStyle(fontSize: 10),),
-                        Text("${DateTime.now().day}",style: const TextStyle(fontSize: 15),),
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-1)),style: const TextStyle(fontSize: 8),),
+                        Text("${DateTime.now().day-1}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),Container(
@@ -143,9 +156,10 @@ class _DocClinicState extends State<DocClinic> {
                     height: 30,
                     decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1)),style: const TextStyle(fontSize: 10),),
-                        Text("${DateTime.now().day+1}",style: const TextStyle(fontSize: 15),),
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day)),style: const TextStyle(fontSize: 8),),
+                        Text("${DateTime.now().day}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),Container(
@@ -153,9 +167,21 @@ class _DocClinicState extends State<DocClinic> {
                     height: 30,
                     decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2)),style: const TextStyle(fontSize: 10),),
-                        Text("${DateTime.now().day+2}",style: const TextStyle(fontSize: 15),),
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1)),style: const TextStyle(fontSize: 8),),
+                        Text("${DateTime.now().day+1}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
+                      ],
+                    ),
+                  ),Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.purple),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(getWeekdayAbbreviation(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2)),style: const TextStyle(fontSize: 8),),
+                        Text("${DateTime.now().day+2}",style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ),
@@ -191,6 +217,7 @@ class _DocClinicState extends State<DocClinic> {
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     children: [Align(
@@ -199,22 +226,30 @@ class _DocClinicState extends State<DocClinic> {
                       setState(() {
                         isVisible=false;
                       });
-                    }, icon: const Icon(Icons.arrow_back, color: Colors.purple,)),
-                  ),const Align(
+                    }, icon: const Icon(Icons.arrow_back, color: Colors.purple,size: 20,)),
+                  ), Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Booking confirmation")
-                    )
+                    child: FutureBuilder<void>(
+                      future: calculateTextWidth(),
+                      builder:(context, snapshot) {
+                        if (snapshot.connectionState==ConnectionState.done){
+                          final horizontalMargin = (MediaQuery.of(context).size.width * 0.5) - (textWidth * 0.5)-20;
+                          return Padding(
+                            padding: EdgeInsets.only(left: horizontalMargin),
+                              child: Text("Booking confirmation: ${actualDateSelected.day}/${actualDateSelected.month}",style: const TextStyle(fontSize: 15),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                            );
+                        }else{
+                          return Container();
+                        }
+                      },
+                    ),
+                  )
                   ]
                 ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        children: [
-                          Text(widget.docClinic.price.toString()),
-                          Text(actualDateSelected.day.toString())
-                        ],
-                      ),
+                      Text("\$${widget.docClinic.price} / first visit",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                       ElevatedButton(onPressed: (){}, child: const Text("Book"))
                     ],
                   )
