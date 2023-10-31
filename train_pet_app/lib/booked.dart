@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:train_pet_app/class_veterinary.dart';
 import 'package:train_pet_app/days.dart';
 
-class bookedPage extends StatelessWidget{
+class BookedPage extends StatelessWidget{
   final Veterinary docClinic;
   final DateTime selectedDate;
-  const bookedPage({super.key,required Veterinary this.docClinic,required DateTime this.selectedDate});
+  const BookedPage({super.key,required this.docClinic,required this.selectedDate});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,25 +23,27 @@ class bookedPage extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Icons.check_circle_outline,color: Colors.white,size: 80,),
+              const Icon(Icons.check_circle_outline,color: Colors.white,size: 150,),
               Wrap(
                 direction: Axis.vertical,
                 crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 10,
+                spacing: 25,
                 children: [
                   const Text("Your appointment\nhas been booked", textAlign: TextAlign.center, style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 23),),
                   Text("${docClinic.name} will be waiting\nfor you and your pet",textAlign: TextAlign.center,style: const TextStyle(color:Colors.white),),
                   Container(
-                    width: 200,
+                    width: 180,
                     height: 35,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 6, 66, 116),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Row(children: [
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
                       const Icon(Icons.schedule_outlined,color: Color.fromARGB(160, 131, 143, 181),),
-                      Text("${getWeekdayAbbreviation(selectedDate)} ${selectedDate.day} ${selectedDate.month} at 10:30am",style: TextStyle(color:Colors.white),)
+                      Text("${getWeekdayAbbreviation(selectedDate)} ${selectedDate.day} ${selectedDate.month} at 10:30am",style: const TextStyle(color:Colors.white),)
                     ]),
                   )
                 ]),

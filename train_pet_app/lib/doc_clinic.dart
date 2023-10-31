@@ -259,7 +259,7 @@ class _DocClinicState extends State<DocClinic> {
                     children: [
                       Text("\$${widget.docClinic.price} / first visit",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                       ElevatedButton(onPressed: (){
-                        Navigator.push(context,MaterialPageRoute(builder: ((context) => bookedPage(docClinic: widget.docClinic,selectedDate: actualDateSelected,))));
+                        Navigator.push(context,MaterialPageRoute(builder: ((context) => BookedPage(docClinic: widget.docClinic,selectedDate: actualDateSelected,))));
                       }, child: const Text("Book"))
                     ],
                   )
