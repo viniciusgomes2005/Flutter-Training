@@ -40,22 +40,28 @@ class _DocClinicState extends State<DocClinic> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFf9f8fd),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.purple),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 10,top: 10),
-            child: Wrap(
-              spacing: 10,
-              children: [
-                Icon(Icons.share_outlined, color: Colors.purple,),
-                Icon(Icons.favorite_border_outlined, color: Colors.purple,)
-              ],
-            ),
-          )
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height*0.2),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.purple),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 10,top: 10),
+              child: Wrap(
+                spacing: 10,
+                children: [
+                  Icon(Icons.share_outlined, color: Colors.purple,),
+                  Icon(Icons.favorite_border_outlined, color: Colors.purple,)
+                ],
+              ),
+            )
+          ],
+          flexibleSpace:Center(
+            child: Icon(Icons.person_outline, size: MediaQuery.of(context).size.height*0.2),
+          ),
+        ),
       ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -124,8 +130,9 @@ class _DocClinicState extends State<DocClinic> {
                   actualDateSelected=selectedDate;
                 });
             }, child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text("Selecione a data da consulta"),
+                const Text("Selecione a data da consulta:", style: TextStyle(color: Colors.black,fontSize: 12),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -233,7 +240,7 @@ class _DocClinicState extends State<DocClinic> {
                       future: calculateTextWidth(),
                       builder:(context, snapshot) {
                         if (snapshot.connectionState==ConnectionState.done){
-                          final horizontalMargin = (MediaQuery.of(context).size.width * 0.5) - (textWidth * 0.5)-20;
+                          final horizontalMargin = (MediaQuery.of(context).size.width * 0.5) - (textWidth * 0.5)-40;
                           return Padding(
                             padding: EdgeInsets.only(left: horizontalMargin),
                               child: Text("Booking confirmation: ${actualDateSelected.day}/${actualDateSelected.month}",style: const TextStyle(fontSize: 15),overflow: TextOverflow.ellipsis,maxLines: 1,),
