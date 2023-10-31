@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:train_pet_app/booked.dart';
 import 'class_veterinary.dart';
 import 'days.dart';
 
@@ -221,7 +222,7 @@ class _DocClinicState extends State<DocClinic> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 100,
-              color: Colors.white,
+              decoration: BoxDecoration(color:Colors.white,border: Border.all(color: const Color.fromARGB(0, 236, 233, 233)),borderRadius: const BorderRadius.only(topLeft:Radius.circular(20),topRight:Radius.circular(20))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -257,7 +258,9 @@ class _DocClinicState extends State<DocClinic> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text("\$${widget.docClinic.price} / first visit",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                      ElevatedButton(onPressed: (){}, child: const Text("Book"))
+                      ElevatedButton(onPressed: (){
+                        Navigator.push(context,MaterialPageRoute(builder: ((context) => bookedPage(docClinic: widget.docClinic,selectedDate: actualDateSelected,))));
+                      }, child: const Text("Book"))
                     ],
                   )
                 ],
