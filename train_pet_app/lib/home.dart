@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:train_pet_app/all_booked.dart';
 import 'veterinary.dart';
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget{
                     IconButton(
                       icon: const Icon(Icons.schedule),
                       onPressed: () {
-                        
+                        Navigator.push(context,MaterialPageRoute(builder: ((context) => AllBooked())));
                       },
                     ),
                     const Text("Schedule")

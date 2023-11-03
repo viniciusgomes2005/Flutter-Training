@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:train_pet_app/all_booked.dart';
 import 'package:train_pet_app/class_veterinary.dart';
 import 'package:train_pet_app/days.dart';
 
@@ -56,7 +57,9 @@ class BookedPage extends StatelessWidget{
                     )
                   )
                 ),
-                onPressed: (){}, 
+                onPressed: (){
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => AllBooked(docClinicToAdd: docClinic,))), (route) => route.isFirst);
+                }, 
                 child: const Text("Go to my appointments")
                 )
             ],
