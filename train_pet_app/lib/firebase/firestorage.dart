@@ -20,3 +20,24 @@ void addAppointment(Appointment appointment)async{
     null;
   }
 }
+void updateList(Appointment appointment)async{
+  final DocumentReference documentFuture = FirebaseFirestore.instance.collection('listins').doc('IRcVNxjgXcHx02FCH4Oh'); 
+  final CollectionReference collectionFuture =documentFuture.collection('FutureAppointments');
+  final DocumentReference documentPast = FirebaseFirestore.instance.collection('listins').doc('IRcVNxjgXcHx02FCH4Oh'); 
+  final CollectionReference collectionPast =documentPast.collection('PastAppointments');
+  collectionFuture.get().then(
+    (querySnapshot){
+      for(var docSnapshot in querySnapshot.docs){
+        var data = docSnapshot.data() as Map<String,dynamic>;
+        if(data.containsKey('dateTime')&&data['dateTime'] is Timestamp){
+          DateTime firestoreDate = (data["dateTime"] as Timestamp).toDate();
+          DateTime actualDate = DateTime.now();
+          if(firestoreDate.isBefore(actualDate)){
+            collectionPast.add(docSnapshot);
+            collectionFuture.doc(docSnapshot.id).delete();
+          }
+        }
+      }
+    }
+  );
+}
