@@ -1,11 +1,10 @@
 import "package:flutter/material.dart";
-import "package:train_pet_app/class_veterinary.dart";
-
+import "package:train_pet_app/class_appointment.dart";
 // ignore: must_be_immutable
 class AllBooked extends StatefulWidget{
-  final Veterinary? docClinicToAdd;
+  final Appointment? docClinicToAdd;
   AllBooked({super.key,this.docClinicToAdd});
-  List<Veterinary> docClinicMap=[];
+  List<Appointment> docClinicMap=[];
   void addingDocClinic(){
     if (docClinicToAdd!=null){
       docClinicMap.add(docClinicToAdd!);

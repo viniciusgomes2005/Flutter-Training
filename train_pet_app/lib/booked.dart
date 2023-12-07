@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:train_pet_app/all_booked.dart';
+import 'package:train_pet_app/class_appointment.dart';
 import 'package:train_pet_app/class_veterinary.dart';
 import 'package:train_pet_app/days.dart';
+import 'package:train_pet_app/firebase/firestorage.dart';
 
 class BookedPage extends StatelessWidget{
   final Veterinary docClinic;
@@ -58,7 +60,8 @@ class BookedPage extends StatelessWidget{
                   )
                 ),
                 onPressed: (){
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => AllBooked(docClinicToAdd: docClinic,))), (route) => route.isFirst);
+                  addAppointment(Appointment(veterinary: docClinic, dateTime: selectedDate));
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => AllBooked(docClinicToAdd: Appointment(veterinary: docClinic, dateTime: selectedDate),))), (route) => route.isFirst);
                 }, 
                 child: const Text("Go to my appointments")
                 )
