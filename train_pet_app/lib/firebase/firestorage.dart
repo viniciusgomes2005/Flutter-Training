@@ -20,7 +20,7 @@ void addAppointment(Appointment appointment)async{
     null;
   }
 }
-void updateList(Appointment appointment)async{
+void updateList()async{
   final DocumentReference documentFuture = FirebaseFirestore.instance.collection('listins').doc('IRcVNxjgXcHx02FCH4Oh'); 
   final CollectionReference collectionFuture =documentFuture.collection('FutureAppointments');
   final DocumentReference documentPast = FirebaseFirestore.instance.collection('listins').doc('IRcVNxjgXcHx02FCH4Oh'); 

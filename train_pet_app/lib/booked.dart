@@ -61,6 +61,7 @@ class BookedPage extends StatelessWidget{
                 ),
                 onPressed: (){
                   addAppointment(Appointment(veterinary: docClinic, dateTime: selectedDate));
+                  updateList();
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => AllBooked(docClinicToAdd: Appointment(veterinary: docClinic, dateTime: selectedDate),))), (route) => route.isFirst);
                 }, 
                 child: const Text("Go to my appointments")
