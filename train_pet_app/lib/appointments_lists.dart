@@ -18,6 +18,11 @@ class _AppointmentListState extends State<AppointmentList> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
+  void initState(){
+    super.initState();
+    refresh();
+  }
+  @override
   Widget build(BuildContext context) {
     throw UnimplementedError();
   }
