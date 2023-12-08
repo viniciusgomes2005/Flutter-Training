@@ -150,7 +150,7 @@ class _SpecialistsState extends State<Clinics> {
         }
         ),
       bottomNavigationBar:SizedBox(
-          height: 60,
+          height: 100,
           child: BottomAppBar(
             color:const Color(0xFFf9f8fd),
             shadowColor: Colors.black26,

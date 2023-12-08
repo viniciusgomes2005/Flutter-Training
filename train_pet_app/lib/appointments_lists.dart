@@ -28,7 +28,7 @@ class _AppointmentListState extends State<AppointmentList> {
   }
 
   refresh() async {
-    List<Appointment> pastList=[];
+    List<Appointment> pastList=[]; 
     List<Appointment> futureList=[];
     QuerySnapshot<Map<String,dynamic>> snapshotFuture = await firestore.collection("listins").doc('IRcVNxjgXcHx02FCH4Oh').collection("FutureAppointments").get();
     QuerySnapshot<Map<String,dynamic>> snapshotPast = await firestore.collection("listins").doc('IRcVNxjgXcHx02FCH4Oh').collection("PastAppointments").get();

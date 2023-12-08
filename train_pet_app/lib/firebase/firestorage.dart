@@ -12,13 +12,27 @@ void addAppointment(Appointment appointment)async{
     null;
   }
 }
-void updateAppointments()async{
-    QuerySnapshot<Map<String,dynamic>> snapshotFuture = await FirebaseFirestore.instance.collection("listins").doc('IRcVNxjgXcHx02FCH4Oh').collection("FutureAppointments").get();
-    for(var doc in snapshotFuture.docs){
-      var appointment = Appointment.fromMap(doc.data());
-      if(appointment.dateTime.isBefore(DateTime.now())){
-        FirebaseFirestore.instance.collection("listins").doc('IRcVNxjgXcHx02FCH4Oh').collection("PastAppointments").add(doc as Map<String, dynamic>);
-        FirebaseFirestore.instance.collection("listins").doc('IRcVNxjgXcHx02FCH4Oh').collection("FutureAppointments").doc(doc.id).delete();
-      }
+void updateAppointments() async {
+  QuerySnapshot<Map<String, dynamic>> snapshotFuture =
+      await FirebaseFirestore.instance
+          .collection("listins")
+          .doc('IRcVNxjgXcHx02FCH4Oh')
+          .collection("FutureAppointments")
+          .get();
+  for (var doc in snapshotFuture.docs) {
+    var appointment = Appointment.fromMap(doc.data() as Map<String, dynamic>);
+    if (appointment.dateTime.isBefore(DateTime.now())) {
+      FirebaseFirestore.instance
+          .collection("listins")
+          .doc('IRcVNxjgXcHx02FCH4Oh')
+          .collection("PastAppointments")
+          .add(appointment.toMap());
+      FirebaseFirestore.instance
+          .collection("listins")
+          .doc('IRcVNxjgXcHx02FCH4Oh')
+          .collection("FutureAppointments")
+          .doc(doc.id)
+          .delete();
     }
+  }
 }
