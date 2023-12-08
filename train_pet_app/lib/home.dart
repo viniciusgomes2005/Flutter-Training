@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget{
                     IconButton(
                       icon: const Icon(Icons.schedule),
                       onPressed: () {
-                        updateList();
+                        updateAppointments();
                         Navigator.push(context,MaterialPageRoute(builder: ((context) => AllBooked())));
                       },
                     ),

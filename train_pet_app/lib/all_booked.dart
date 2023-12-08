@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:train_pet_app/appointments_lists.dart";
 import "package:train_pet_app/class_appointment.dart";
 // ignore: must_be_immutable
 class AllBooked extends StatefulWidget{
@@ -56,7 +55,6 @@ class _AllBookedState extends State<AllBooked>{
               ],
             ),
             ),
-            body:const AppointmentList(list: 'future')
           ),
       ],
     );
