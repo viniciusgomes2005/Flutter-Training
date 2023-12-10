@@ -7,7 +7,7 @@ class Appointment{
   Appointment({required this.veterinary, required this.dateTime});
   Appointment.fromMap(Map<String,dynamic> map)
     :veterinary=Veterinary(name: map["name"], specialization: map["specialization"], distance: map["distance"], price: map["price"], evaluation: map["evaluation"], experience: map["experience"]),
-    dateTime=(map["dateTime"] as Timestamp).toDate();
+    dateTime = (map["dateTime"] as Timestamp).toDate();
   Map<String,dynamic> toMap(){
     return{
       "name":veterinary.name,

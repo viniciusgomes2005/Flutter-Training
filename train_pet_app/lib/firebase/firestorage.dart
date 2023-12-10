@@ -20,7 +20,7 @@ void updateAppointments() async {
           .collection("FutureAppointments")
           .get();
   for (var doc in snapshotFuture.docs) {
-    var appointment = Appointment.fromMap(doc.data() as Map<String, dynamic>);
+    var appointment = Appointment.fromMap(doc.data());
     if (appointment.dateTime.isBefore(DateTime.now())) {
       FirebaseFirestore.instance
           .collection("listins")

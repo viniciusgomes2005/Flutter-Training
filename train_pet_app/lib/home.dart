@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget{
                       icon: const Icon(Icons.schedule),
                       onPressed: () {
                         updateAppointments();
-                        Navigator.push(context,MaterialPageRoute(builder: ((context) => AllBooked())));
+                        Navigator.push(context,MaterialPageRoute(builder: ((context) => const AllBooked())));
                       },
                     ),
                     const Text("Schedule")

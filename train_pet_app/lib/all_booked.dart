@@ -1,25 +1,16 @@
 import "package:flutter/material.dart";
-import "package:train_pet_app/class_appointment.dart";
+import "package:train_pet_app/appointments_lists.dart";
 // ignore: must_be_immutable
 class AllBooked extends StatefulWidget{
-  final Appointment? docClinicToAdd;
-  AllBooked({super.key,this.docClinicToAdd});
-  List<Appointment> docClinicMap=[];
-  void addingDocClinic(){
-    if (docClinicToAdd!=null){
-      docClinicMap.add(docClinicToAdd!);
-    }
-  }
+  const AllBooked({super.key,});
   @override
   State<StatefulWidget> createState()=> _AllBookedState();
 }
 class _AllBookedState extends State<AllBooked>{
-  bool isVisible=false;
+  String listName="future";
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
+    return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Wrap(
@@ -33,31 +24,36 @@ class _AllBookedState extends State<AllBooked>{
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
+                          backgroundColor: listName=="future"?Colors.purple:const Color(0xFFf9f8fd),
                           shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30)
                                   )
                         ),
                         onPressed:() {
+                          setState(() {
+                            listName="future";
+                          });
                       }, 
-                        child: const Text("Upcoming")),
+                        child: Text("Upcoming",style: TextStyle(color: listName=="future"?Colors.white:Colors.black),)),
                       
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:  const Color(0xFFf9f8fd),
+                          backgroundColor:  listName=="future"?const Color(0xFFf9f8fd):Colors.purple,
                           shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30)
                                   )
                         ),
                         onPressed:() {
+                          setState(() {
+                            listName="past";
+                          });
                       },
-                      child: const Text("Past",style: TextStyle(color: Colors.black),),)]),
+                      child: Text("Past",style: TextStyle(color:listName=="future"? Colors.black:Colors.white),),)]),
               ],
             ),
             ),
-          ),
-      ],
-    );
+            body: AppointmentList(listName: listName),
+          );
   }
 
 }

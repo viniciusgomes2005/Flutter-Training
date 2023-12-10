@@ -3,8 +3,8 @@ import "package:flutter/material.dart";
 import "package:train_pet_app/class_appointment.dart";
 // ignore: must_be_immutable
 class AppointmentList extends StatefulWidget{
-
-  const AppointmentList({super.key,});
+  final String listName;
+  const AppointmentList({super.key,required this.listName});
 
   @override
   State<AppointmentList> createState() => _AppointmentListState();
@@ -24,7 +24,19 @@ class _AppointmentListState extends State<AppointmentList> {
   }
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return ListView(
+      children: List.generate(widget.listName=="future"? futureAppointments.length:pastAppointments.length, (index) {
+        Appointment model =widget.listName=="future"? futureAppointments[index]:pastAppointments[index];
+        return Container(
+          width: 300,
+          height: 100,
+          decoration: const BoxDecoration(
+            color: Colors.purple,
+          ),
+          child: Text(model.veterinary.name),
+        );
+      }),
+    );
   }
 
   refresh() async {
