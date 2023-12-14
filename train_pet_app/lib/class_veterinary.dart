@@ -6,7 +6,7 @@ class Veterinary {
   final double evaluation;
   final int experience;
   const Veterinary({required this.name, required this.specialization, required this.distance, required this.price, required this.evaluation, required this.experience});
-}
+} 
 const List<Veterinary> allVeterinaries = [
   Veterinary(name: "Dr. Smith", specialization: "Small Animals", distance: 5, price: 50, evaluation: 4.5, experience: 10),
   Veterinary(name: "Dr. Johnson", specialization: "Equine Care", distance: 15, price: 75, evaluation: 4.8, experience: 12),

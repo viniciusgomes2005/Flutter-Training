@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:train_pet_app/all_booked.dart';
 import 'package:train_pet_app/firebase/firestorage.dart';
 import 'veterinary.dart';
-class MyApp extends StatelessWidget{
-  const MyApp({super.key});
+class Home extends StatelessWidget{
+  const Home({super.key});
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
